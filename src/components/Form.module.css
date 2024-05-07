@@ -1,0 +1,74 @@
+.appeal {
+    font-family: Verdana, sans-serif;
+    font-size: 20px;
+    padding: 10px;
+    color: blueviolet;
+
+}
+.forms {
+    width: 700px;
+    height:650px;
+    margin: 0 auto;
+    padding: 50px;
+    text-align: center;
+    justify-content: center;
+    align-items: baseline;
+    background-color: #61dafb;
+    border-radius: 10px;
+}
+
+.form{
+
+}
+
+.input {
+    width: 85%;
+    height: 30px;
+    display: block;
+    margin:0 auto;
+    text-align: center;
+    border-radius: 5px;
+
+}
+
+.inputDescription {
+    width: 85%;
+    height: 30px;
+    display: block;
+    margin:0 auto 10px auto;
+    text-align: center;
+    border-radius: 10px;
+}
+
+
+button {
+
+    border: none;
+    width: 230px;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 4px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+    background-color: #4CAF50; /* Зеленый цвет, при нажатии */
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4), 8px 0 16px rgba(0, 0, 0, 0.4); /* Увеличенные тени при нажатии */
+
+}
+
+button:hover {
+    background-color: #45a049; /* Зеленый цвет, при наведении курсора */
+}
+
+button:active {
+    background-color: #4CAF50; /* Зеленый цвет */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 4px 0 8px rgba(0, 0, 0, 0.2); /* Тени снизу и справа */
+
+}
+
+
+
+
