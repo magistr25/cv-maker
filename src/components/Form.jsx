@@ -15,26 +15,13 @@ function Form() {
         expectedSalary: ""
     });
 
-    const HOST = '127.0.0.1';
-    const PORT = '5000';
-
-
     const handleChange = (event) => {
         const {name, value} = event.target;
         setFormData({...formData, [name]: value});
     };
 
-    const handleGetRequest = () => {
-        // Выполнить GET запрос
-        axios.get(`https://${HOST}:${PORT}/api/v2/pdf`)
-            .then(response => {
-                console.log(response.data);
-                // Дальнейшая обработка полученных данных
-            })
-            .catch(error => {
-                console.error("Ошибка при выполнении GET запроса:", error);
-            });
-    };
+    const HOST = '127.0.0.1';
+    const PORT = '5000';
 
     const handlePostRequest = () => {
         // Выполнить POST запрос с данными формы
@@ -125,8 +112,8 @@ function Form() {
                     <div className={styles.inputDescription}>ожидаемая зарплата</div>
                 </div>
 
-                <Button innerText="Создать резюме" onclick = {handlePostRequest}/>
-                <Button innerText="Cкачать резюме" onclick = {handleGetRequest}/>
+                <Button innerText="Создать резюме" onclick={handlePostRequest}/>
+
             </div>
         </div>
     )
