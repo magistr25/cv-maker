@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import styles from "./Form.module.css";
-
+import Button from "./Button";
+import axios from "axios";
 
 function Form() {
     const [formData, setFormData] = useState({
@@ -13,10 +14,41 @@ function Form() {
         phoneNumber: "",
         expectedSalary: ""
     });
+
+    const HOST = '127.0.0.1';
+    const PORT = '5000';
+
+
     const handleChange = (event) => {
         const {name, value} = event.target;
         setFormData({...formData, [name]: value});
     };
+
+    const handleGetRequest = () => {
+        // Выполнить GET запрос
+        axios.get(`https://${HOST}:${PORT}/api/v2/pdf`)
+            .then(response => {
+                console.log(response.data);
+                // Дальнейшая обработка полученных данных
+            })
+            .catch(error => {
+                console.error("Ошибка при выполнении GET запроса:", error);
+            });
+    };
+
+    const handlePostRequest = () => {
+        // Выполнить POST запрос с данными формы
+        axios.post(`http://${HOST}:${PORT}/api/v2`, formData)
+            .then(response => {
+                console.log(response.data);
+                // Дальнейшая обработка ответа сервера
+            })
+            .catch(error => {
+                console.error("Ошибка при выполнении POST запроса:", error);
+            });
+    };
+
+
     return (
         <div>
             <div className={styles.appeal}>Для создания резюме, пожалуйста, заполните форму</div>
@@ -93,8 +125,8 @@ function Form() {
                     <div className={styles.inputDescription}>ожидаемая зарплата</div>
                 </div>
 
-                <button>создать резюме</button>
-                <button>распечатать резюме</button>
+                <Button innerText="Создать резюме" onclick = {handlePostRequest}/>
+                <Button innerText="Cкачать резюме" onclick = {handleGetRequest}/>
             </div>
         </div>
     )
