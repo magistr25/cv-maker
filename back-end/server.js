@@ -25,39 +25,6 @@ con.connect(function(err) {
     console.log("Подключение к серверу MySQL успешно установлено");
 });
 
-app.get('/api/v2/pdf2', async (req, res) => {
-    const email = req.query.email;
-    const sql = `SELECT * FROM resumes WHERE email = '${email}'`;
-    con.query(sql, async (err, result) => {
-        if (err) {
-            throw err;
-        }
-        if (result.length > 0) {
-            const userData = result[0];
-            // Создание Canvas
-            const canvas = createCanvas(400, 200);
-            const ctx = canvas.getContext('2d');
-
-            // Нарисовать данные из JSON на Canvas
-            ctx.fillStyle = 'white';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = 'black';
-            ctx.font = '20px Arial';
-            ctx.fillText(`Full Name: ${userData.FullName}`, 10, 30);
-            ctx.fillText(`Desired Position: ${userData.DesiredPosition}`, 10, 60);
-            // Добавьте другие поля по аналогии
-
-            // Преобразование Canvas в PDF
-            const pdfStream = canvas.createPDFStream();
-            pdfStream.pipe(res);
-            pdfStream.end();
-        } else {
-            res.json({ message: "Пользователь с указанным email не найден" });
-        }
-    });
-});
-
-
 
 // GET запрос к базе данных MySQL
 app.get('/api/v2/pdf', (req, res) => {
