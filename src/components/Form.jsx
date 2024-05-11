@@ -2,6 +2,8 @@ import React, {useState} from "react";
 import styles from "./Form.module.css";
 import Button from "./Button";
 import axios from "axios";
+import {NavLink} from "react-router-dom";
+
 
 function Form() {
     const [formData, setFormData] = useState({
@@ -113,10 +115,15 @@ function Form() {
                 </div>
 
                 <Button innerText="Создать резюме" onclick={handlePostRequest}/>
+                <NavLink to="/DownloadForm">
+                    <Button innerText={"Распечатать резюме"}>
+                    </Button>
+                </NavLink>
 
-            </div>
+
         </div>
-    )
+</div>
+)
 }
 
 export default Form;

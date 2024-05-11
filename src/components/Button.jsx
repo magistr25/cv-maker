@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./Button.module.css";
 
-const Button = ({innerText, onclick}) => {
+const Button = ({innerText, onClick}) => {
     return (
-        <button type={"submit"} className={styles.button} onClick={onclick}>
+        <button type={"submit"} className={styles.button} onClick={onClick}>
             {innerText}
         </button>
     )
