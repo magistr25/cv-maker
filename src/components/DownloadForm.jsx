@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { connect } from "react-redux"; // Импортируем connect из react-redux
-import styles from "./DownloadForm.module.css";
+import styles from "./styles/DownloadForm.module.css";
 import Button from "./Button";
 import { NavLink } from "react-router-dom";
-import { setEmail } from "./actionSetEmail"; // Импортируем действие setEmail
+import { setEmail } from "../actions/actionSetEmail"; // Импортируем действие setEmail
 
 function DownloadForm({ setEmail }) {
     const [formData, setFormData] = useState({

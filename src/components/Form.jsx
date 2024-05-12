@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import styles from "./Form.module.css";
+import styles from "./styles/Form.module.css";
 import Button from "./Button";
 import axios from "axios";
 import {NavLink} from "react-router-dom";
