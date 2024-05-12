@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import PDFDocument from "./PDFgeneraton";
+import {useSelector} from "react-redux";
 
-export const PDFGenerationContainer = (props) => {
+export const PDFGenerationContainer = () => {
+    const email = useSelector(state => state.email);
     const HOST = '127.0.0.1';
     const PORT = '5000';
 
@@ -12,7 +14,7 @@ export const PDFGenerationContainer = (props) => {
         // Выполнить GET запрос при монтировании компонента
         axios.get(`http://${HOST}:${PORT}/api/v2/pdf`, {
             params: {
-                email: props.email
+                email: email
             }
         })
             .then(response => {
@@ -22,7 +24,7 @@ export const PDFGenerationContainer = (props) => {
             .catch(error => {
                 console.error("Ошибка при выполнении GET запроса:", error);
             });
-    }, [props.email]); // Пустой массив зависимостей гарантирует, что запрос выполнится только один раз при монтировании компонента
+    }, [email]); // Пустой массив зависимостей гарантирует, что запрос выполнится только один раз при монтировании компонента
 
     return (
         // Передайте данные в компонент PDFDocument, когда они доступны
