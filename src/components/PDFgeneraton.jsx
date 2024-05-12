@@ -1,4 +1,4 @@
-import { Font, Page, Text, View, Document, StyleSheet, PDFViewer } from '@react-pdf/renderer';
+import {Font, Page, Text, View, Document, StyleSheet, PDFViewer} from '@react-pdf/renderer';
 
 // Загружаем шрифт
 Font.register({
@@ -8,28 +8,48 @@ Font.register({
 
 const styles = StyleSheet.create({
     page: {
-        flexDirection: 'row',
+        flexDirection: "column",
         backgroundColor: '#E4E4E4'
     },
     section: {
         margin: 10,
         padding: 10,
-        flexGrow: 1
+        flexGrow: 1,
+
     },
     text: {
-        fontFamily: 'Roboto'
+        fontFamily: 'Roboto',
     }
 });
 
-const PDFDocument = () => (
-    <PDFViewer style={{ width: '100%', height: '90vh' }}>
+const PDFDocument = ({data}) => (
+
+    <PDFViewer style={{width: '100%', height: '90vh'}}>
         <Document>
             <Page size="A4" style={styles.page}>
                 <View style={styles.section}>
-                    <Text style={styles.text}>Привет мир!</Text>
+                    <Text style={styles.text}>Ожидаемая позиция: {data.DesiredPosition}</Text>
                 </View>
                 <View style={styles.section}>
-                    <Text style={styles.text}>Данный текст на русском языке!</Text>
+                    <Text style={styles.text}>Полное имя: {data.FullName}</Text>
+                </View>
+                <View style={styles.section}>
+                    <Text style={styles.text}>Город: {data.City}</Text>
+                </View>
+                <View style={styles.section}>
+                    <Text style={styles.text}>Образование: {data.Education}</Text>
+                </View>
+                <View style={styles.section}>
+                    <Text style={styles.text}>Опыт работы: {data.Experience}</Text>
+                </View>
+                <View style={styles.section}>
+                    <Text style={styles.text}>Ожидаемая зарплата: {data.ExpectedSalary}</Text>
+                </View>
+                <View style={styles.section}>
+                    <Text style={styles.text}>Номер телефона: {data.PhoneNumber}</Text>
+                </View>
+                <View style={styles.section}>
+                    <Text style={styles.text}>email: {data.email}</Text>
                 </View>
             </Page>
         </Document>
@@ -37,3 +57,4 @@ const PDFDocument = () => (
 );
 
 export default PDFDocument;
+

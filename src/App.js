@@ -4,7 +4,7 @@ import React from "react";
 import DownloadForm from "./components/DownloadForm";
 // import Pdf from "./components/Pdf";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import PDFgeneraton from "./components/PDFgeneraton";
+import {PDFGenerationContainer} from "./components/PDFgenerationContainer";
 
 
 function App() {
@@ -15,7 +15,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Form />} />
                     <Route path="/DownloadForm" element={<DownloadForm />} />
-                    <Route path="/PDFgeneration" element={<PDFgeneraton />} />
+                    <Route path="/PDFgenerationContainer" element={<PDFGenerationContainer email='qwerty'/>} />
                 </Routes>
             </BrowserRouter>
 

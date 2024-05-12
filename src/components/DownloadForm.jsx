@@ -3,6 +3,7 @@ import styles from "./DownloadForm.module.css";
 import Button from "./Button";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
+import {PDFGenerationContainer} from "./PDFgenerationContainer";
 
 
 
@@ -21,30 +22,11 @@ function DownloadForm() {
     const handleChange = (event) => {
         const { name, value } = event.target;
         setFormData({ ...formData, [name]: value });
-    };
-
-    const getResume = (email) => {
-        const HOST = '127.0.0.1';
-        const PORT = '5000';
-
-        // Выполнить GET запрос
-        axios.get(`http://${HOST}:${PORT}/api/v2/pdf`, {
-            params: {
-                email: email
-            }
-        })
-            .then(response => {
-                // Дальнейшая обработка полученных данных
-                // здесь нужно создать PDF
-                console.log(response.data)
-                return response.data;
-
-            })
-            .catch(error => {
-                console.error("Ошибка при выполнении GET запроса:", error);
-            });
 
     };
+
+
+
 
     return (
         <div>
@@ -61,10 +43,12 @@ function DownloadForm() {
                     <div className={styles.inputDescription}>email</div>
                 </div>
 
-                <NavLink to="/PDFgeneration">
-                    <Button innerText={"Распечатать резюме"} onClick={() => getResume(formData.email)}>
+                <NavLink to="/PDFgenerationContainer">
+                    <Button innerText={"Распечатать резюме"} onClick={handleChange}>
                     </Button>
                 </NavLink>
+
+
             </div>
         </div>
     );
