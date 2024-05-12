@@ -1,13 +1,11 @@
 import React, { useState } from "react";
+import { connect } from "react-redux"; // Импортируем connect из react-redux
 import styles from "./DownloadForm.module.css";
 import Button from "./Button";
 import { NavLink } from "react-router-dom";
-import axios from "axios";
-import {PDFGenerationContainer} from "./PDFgenerationContainer";
+import { setEmail } from "./actionSetEmail"; // Импортируем действие setEmail
 
-
-
-function DownloadForm() {
+function DownloadForm({ setEmail }) {
     const [formData, setFormData] = useState({
         fullName: "",
         desiredPosition: "",
@@ -22,11 +20,11 @@ function DownloadForm() {
     const handleChange = (event) => {
         const { name, value } = event.target;
         setFormData({ ...formData, [name]: value });
-
     };
 
-
-
+    const handleButtonClick = () => {
+        setEmail(formData.email); // Вызываем setEmail с новым значением email
+    };
 
     return (
         <div>
@@ -44,14 +42,17 @@ function DownloadForm() {
                 </div>
 
                 <NavLink to="/PDFgenerationContainer">
-                    <Button innerText={"Распечатать резюме"} onClick={handleChange}>
-                    </Button>
+                    <Button innerText={"Распечатать резюме"} onClick={handleButtonClick} />
                 </NavLink>
-
-
             </div>
         </div>
     );
 }
 
-export default DownloadForm;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setEmail: (email) => dispatch(setEmail(email)) // Передаем setEmail через mapDispatchToProps
+    };
+};
+
+export default connect(null, mapDispatchToProps)(DownloadForm); // Подключаем setEmail к компоненту DownloadForm

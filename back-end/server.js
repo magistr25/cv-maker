@@ -28,8 +28,8 @@ con.connect(function(err) {
 
 // GET запрос к базе данных MySQL
 app.get('/api/v2/pdf', (req, res) => {
-    const email = req.query.email;
-    const sql = `SELECT * FROM resumes WHERE email = '${email}'`;
+    const data = req.query.email;
+    const sql = `SELECT * FROM resumes WHERE email = '${data.email}'`;
     con.query(sql, (err, result) => {
         if (err) {
             throw err;
