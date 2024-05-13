@@ -114,7 +114,7 @@ function Form() {
                     <div className={styles.inputDescription}>ожидаемая зарплата</div>
                 </div>
 
-                <Button innerText="Создать резюме" onclick={handlePostRequest}/>
+                <Button innerText="Создать резюме" onClick={handlePostRequest}/>
                 <NavLink to="/DownloadForm">
                     <Button innerText={"Распечатать резюме"}>
                     </Button>

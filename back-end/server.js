@@ -2,7 +2,8 @@ const express = require('express');
 const mysql = require('mysql');
 const cors = require('cors');
 const app = express();
-const { createCanvas, loadImage } = require('canvas');
+
+
 
 // Разрешение CORS для всех источников
 app.use(cors());

@@ -8,26 +8,42 @@ export const PDFGenerationContainer = () => {
     const HOST = '127.0.0.1';
     const PORT = '5000';
 
-    const [data, setData] = useState(null); // Используйте состояние для хранения данных
+    const [data, setData] = useState(null); // Используем состояние для хранения данных
 
     useEffect(() => {
-        // Выполнить GET запрос при монтировании компонента
-        axios.get(`http://${HOST}:${PORT}/api/v2/pdf`, {
-            params: {
-                email: email
-            }
-        })
-            .then(response => {
-                // Обновить состояние с полученными данными
-                setData(response.data);
+        let isMounted = true; // Флаг, указывающий, что компонент монтируется
+
+        if (!data && isMounted) { // Выполняем запрос только если данных нет и компонент монтируется
+            axios.get(`http://${HOST}:${PORT}/api/v2/pdf`, {
+                params: {
+                    email: email
+                }
             })
-            .catch(error => {
-                console.error("Ошибка при выполнении GET запроса:", error);
-            });
-    }, [email]); // Пустой массив зависимостей гарантирует, что запрос выполнится только один раз при монтировании компонента
+                .then(response => {
+                    if (response.data.message === "Пользователь с указанным email не найден" && isMounted) {
+                        console.log(response.data);
+
+                       alert ("Пользователь с указанным email не найден. Введите корректный email");
+                    }
+                    if (isMounted) { // Проверяем, что компонент все еще монтируется
+                        setData(response.data);
+
+                    }
+                })
+                .catch(error => {
+                    console.error("Ошибка при выполнении GET запроса:", error);
+                   alert ("Ошибка!");
+                });
+        }
+
+        return () => {
+            isMounted = false; // Устанавливаем флаг в false при размонтировании компонента
+        };
+    }, []); // Пустой массив зависимостей гарантирует, что эффект выполнится только один раз при монтировании компонента
+
 
     return (
-        // Передайте данные в компонент PDFDocument, когда они доступны
+        // Передаём данные в компонент PDFDocument, когда они доступны
         data && <PDFDocument data={data} />
     );
 };
