@@ -1,55 +1,87 @@
-import {Font, Page, Text, View, Document, StyleSheet, PDFViewer} from '@react-pdf/renderer';
+import { Font, Page, Text, View, Document, StyleSheet, PDFViewer } from '@react-pdf/renderer';
 
-// Загружаем шрифт
+// Загружаем шрифты
 Font.register({
     family: 'Roboto',
-    src: 'https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-regular-webfont.ttf'
+    fonts: [
+        {
+            src: 'https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-regular-webfont.ttf',
+        },
+        {
+            src: 'https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-bold-webfont.ttf',
+            fontWeight: 'bold',
+        }
+    ]
 });
 
 const styles = StyleSheet.create({
     page: {
-        flexDirection: "column",
-        backgroundColor: '#E4E4E4'
+        padding: 30,
+        backgroundColor: '#ffffff',
     },
     section: {
-        margin: 10,
+        marginBottom: 10,
         padding: 10,
-        flexGrow: 1,
-
+        borderBottom: '1px solid #e4e4e4',
+    },
+    header: {
+        fontSize: 20,
+        marginBottom: 20,
+        textAlign: 'center',
+        fontFamily: 'Roboto',
+    },
+    field: {
+        fontSize: 12,
+        marginBottom: 6,
+        fontFamily: 'Roboto',
+    },
+    fieldLabel: {
+        fontFamily: 'Roboto',
+        fontWeight: 'bold',
     },
     text: {
         fontFamily: 'Roboto',
-    }
+    },
 });
 
-const PDFDocument = ({data}) => (
-
-    <PDFViewer style={{width: '100%', height: '90vh'}}>
+const PDFDocument = ({ data }) => (
+    <PDFViewer style={{ width: '100%', height: '90vh' }}>
         <Document>
             <Page size="A4" style={styles.page}>
-                <View style={styles.section}>
-                    <Text style={styles.text}>Ожидаемая позиция: {data.DesiredPosition}</Text>
+                <View style={styles.header}>
+                    <Text>Резюме</Text>
                 </View>
                 <View style={styles.section}>
-                    <Text style={styles.text}>Полное имя: {data.FullName}</Text>
+                    <Text style={styles.fieldLabel}>Ожидаемая позиция:</Text>
+                    <Text style={styles.field}>{data.DesiredPosition}</Text>
                 </View>
                 <View style={styles.section}>
-                    <Text style={styles.text}>Город: {data.City}</Text>
+                    <Text style={styles.fieldLabel}>Полное имя:</Text>
+                    <Text style={styles.field}>{data.FullName}</Text>
                 </View>
                 <View style={styles.section}>
-                    <Text style={styles.text}>Образование: {data.Education}</Text>
+                    <Text style={styles.fieldLabel}>Город:</Text>
+                    <Text style={styles.field}>{data.City}</Text>
                 </View>
                 <View style={styles.section}>
-                    <Text style={styles.text}>Опыт работы: {data.Experience}</Text>
+                    <Text style={styles.fieldLabel}>Образование:</Text>
+                    <Text style={styles.field}>{data.Education}</Text>
                 </View>
                 <View style={styles.section}>
-                    <Text style={styles.text}>Ожидаемая зарплата: {data.ExpectedSalary}</Text>
+                    <Text style={styles.fieldLabel}>Опыт работы:</Text>
+                    <Text style={styles.field}>{data.Experience}</Text>
                 </View>
                 <View style={styles.section}>
-                    <Text style={styles.text}>Номер телефона: {data.PhoneNumber}</Text>
+                    <Text style={styles.fieldLabel}>Ожидаемая зарплата:</Text>
+                    <Text style={styles.field}>{data.ExpectedSalary}</Text>
                 </View>
                 <View style={styles.section}>
-                    <Text style={styles.text}>email: {data.email}</Text>
+                    <Text style={styles.fieldLabel}>Номер телефона:</Text>
+                    <Text style={styles.field}>{data.PhoneNumber}</Text>
+                </View>
+                <View style={styles.section}>
+                    <Text style={styles.fieldLabel}>email:</Text>
+                    <Text style={styles.field}>{data.email}</Text>
                 </View>
             </Page>
         </Document>
@@ -57,4 +89,3 @@ const PDFDocument = ({data}) => (
 );
 
 export default PDFDocument;
-
