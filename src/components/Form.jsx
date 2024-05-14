@@ -29,11 +29,26 @@ function Form() {
         // Выполнить POST запрос с данными формы
         axios.post(`http://${HOST}:${PORT}/api/v2`, formData)
             .then(response => {
-                console.log(response.data);
-                // Дальнейшая обработка ответа сервера
+                console.log(response.data); // Дальнейшая обработка ответа сервера
+                if (response.data === 'Данные успешно добавлены') {
+                    alert('Данные успешно добавлены')
+                    setFormData({
+                        fullName: "",
+                        desiredPosition: "",
+                        education: "",
+                        city: "",
+                        experience: "",
+                        email: "",
+                        phoneNumber: "",
+                        expectedSalary: ""
+                    });
+                }
+                //if ()
+
             })
             .catch(error => {
                 console.error("Ошибка при выполнении POST запроса:", error);
+                alert('Пожалуйста, заполните все поля!')
             });
     };
 
@@ -119,6 +134,8 @@ function Form() {
                     <Button innerText={"Распечатать резюме"}>
                     </Button>
                 </NavLink>
+
+
 
 
         </div>

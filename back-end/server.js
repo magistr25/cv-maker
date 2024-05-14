@@ -3,8 +3,6 @@ const mysql = require('mysql');
 const cors = require('cors');
 const app = express();
 
-
-
 // Разрешение CORS для всех источников
 app.use(cors());
 
@@ -26,7 +24,6 @@ con.connect(function(err) {
     console.log("Подключение к серверу MySQL успешно установлено");
 });
 
-
 // GET запрос к базе данных MySQL
 app.get('/api/v2/pdf', (req, res) => {
     const data = req.query.email;
@@ -43,12 +40,14 @@ app.get('/api/v2/pdf', (req, res) => {
     });
 });
 
-
-
 // POST запрос к базе данных MySQL
 app.post('/api/v2', (req, res) => {
-
     const { fullName, desiredPosition, education, city, experience, email, phoneNumber, expectedSalary } = req.body;
+
+    // Проверка наличия всех обязательных полей
+    if (!fullName || !desiredPosition || !education || !city || !experience || !email || !phoneNumber || !expectedSalary) {
+        return res.status(400).send('Необходимо заполнить все поля!');
+    }
 
     const sql = 'INSERT INTO resumes (fullName, desiredPosition, education, city, experience, email, phoneNumber, expectedSalary) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
     con.query(sql, [fullName, desiredPosition, education, city, experience, email, phoneNumber, expectedSalary], (err, result) => {

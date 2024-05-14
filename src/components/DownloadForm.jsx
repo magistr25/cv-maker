@@ -41,9 +41,14 @@ function DownloadForm({ setEmail }) {
                     <div className={styles.inputDescription}>email</div>
                 </div>
 
+                {formData.email?
                 <NavLink to="/PDFgenerationContainer">
                     <Button innerText={"Распечатать резюме"} onClick={handleButtonClick} />
+                </NavLink>:
+                <NavLink to="/DownloadForm">
+                    <Button innerText={"Распечатать резюме"} onClick={handleButtonClick} />
                 </NavLink>
+                }
             </div>
         </div>
     );

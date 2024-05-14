@@ -1,49 +1,49 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import PDFDocument from "./PDFgeneraton";
-import {useSelector} from "react-redux";
+import { useSelector } from "react-redux";
+import DownloadForm from "./DownloadForm";
+import styles from "./styles/PDFgenerationContainer.module.css";
 
 export const PDFGenerationContainer = () => {
-    const email = useSelector(state => state.email);
+    const email = useSelector((state) => state.email);
     const HOST = '127.0.0.1';
     const PORT = '5000';
 
     const [data, setData] = useState(null); // Используем состояние для хранения данных
+    const [loading, setLoading] = useState(true); // Флаг для отслеживания загрузки данных
 
     useEffect(() => {
-        let isMounted = true; // Флаг, указывающий, что компонент монтируется
-
-        if (!data && isMounted) { // Выполняем запрос только если данных нет и компонент монтируется
+        if (email) {
             axios.get(`http://${HOST}:${PORT}/api/v2/pdf`, {
                 params: {
                     email: email
                 }
             })
                 .then(response => {
-                    if (response.data.message === "Пользователь с указанным email не найден" && isMounted) {
-                        console.log(response.data);
-
-                       alert ("Пользователь с указанным email не найден. Введите корректный email");
-                    }
-                    if (isMounted) { // Проверяем, что компонент все еще монтируется
-                        setData(response.data);
-
-                    }
+                    setData(response.data);
+                    setLoading(false);
                 })
                 .catch(error => {
                     console.error("Ошибка при выполнении GET запроса:", error);
-                   alert ("Ошибка!");
+                    setLoading(false);
                 });
+        } else {
+            setLoading(false);
         }
+    }, [email]);
 
-        return () => {
-            isMounted = false; // Устанавливаем флаг в false при размонтировании компонента
-        };
-    }, []); // Пустой массив зависимостей гарантирует, что эффект выполнится только один раз при монтировании компонента
+    if (loading) {
+        return <div>Загрузка...</div>;
+    }
+
+    if (!data || data.message === "Пользователь с указанным email не найден") {
+        return <div>
+           <h2 className = {styles.message}>"Пользователь с указанным email не найден"</h2>
+            <DownloadForm />
+            </div>
+    }
 
 
-    return (
-        // Передаём данные в компонент PDFDocument, когда они доступны
-        data && <PDFDocument data={data} />
-    );
+    return <PDFDocument data={data} />;
 };
